@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Crypto Rollercoaster</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            cursor: none;
+        }
+        .container {
+            max-width: 800px;
+        }
+        h1 {
+            color: #16c79a;
+            text-shadow: 0 0 10px #16c79a;
+        }
+        .chapter {
+            background-color: #16213e;
+            border: 1px solid #16c79a;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #16c79a;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .chapter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px #16c79a;
+        }
+        .chapter h2 {
+            color: #ff9a3c;
+        }
+        .crypto-icon {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+        #progress-bar {
+            height: 5px;
+            background-color: #16c79a;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #16c79a;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"></div>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">The Crypto Rollercoaster: A Young Entrepreneur's Journey</h1>
+        <div id="progress-bar"></div>
+        <div id="story" class="mt-4"></div>
+    </div>
+
+    <audio id="typingSound" src="https://www.soundjay.com/mechanical/sounds/typewriter-1.mp3" preload="auto"></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const chapters = [
+            {
+                title: "The Genesis Block",
+                content: "In the digital realm, a young explorer named Shamiul, known as Roger, armed with a CSE diploma, took his first steps into the crypto universe.",
+                icon: "₿"
+            },
+            {
+                title: "The Bull Run",
+                content: "Roger and his two companions launched their own crypto project, raising impressive amounts of digital treasure - hundreds of BNB and scores of ETH.",
+                icon: "📈"
+            },
+            {
+                title: "The Market Crash",
+                content: "Success lured them into complacency. Their thriving community drifted away, and the value of their digital gold started to tarnish.",
+                icon: "📉"
+            },
+            {
+                title: "The Hard Fork",
+                content: "Faced with harsh reality, Roger and his team ended their crypto odyssey, closing projects and dividing spoils.",
+                icon: "🔀"
+            },
+            {
+                title: "The HODL Period",
+                content: "For over a year, Roger wandered in uncertainty, contemplating the lessons learned from his whirlwind adventure.",
+                icon: "⏳"
+            },
+            {
+                title: "The Rebirth",
+                content: "Like a phoenix, Roger rises again, setting sights on web3 development, YouTube, and online entrepreneurship, balancing dreams with family responsibilities.",
+                icon: "🔄"
+            }
+        ];
+
+        let currentChapter = 0;
+        let typingTimer;
+        const typingSound = document.getElementById('typingSound');
+
+        function typeWriter(text, elementId, index = 0) {
+            if (index < text.length) {
+                document.getElementById(elementId).innerHTML += text.charAt(index);
+                typingSound.currentTime = 0;
+                typingSound.play();
+                typingTimer = setTimeout(() => typeWriter(text, elementId, index + 1), 50);
+            } else {
+                setTimeout(showNextChapter, 1000);
+            }
+        }
+
+        function showNextChapter() {
+            if (currentChapter < chapters.length) {
+                const chapter = chapters[currentChapter];
+                const chapterId = `chapter-${currentChapter}`;
+                const chapterHTML = `
+                    <div class="chapter p-4">
+                        <h2><span class="crypto-icon">${chapter.icon}</span>${chapter.title}</h2>
+                        <p id="${chapterId}"></p>
+                    </div>
+                `;
+                document.getElementById('story').innerHTML += chapterHTML;
+                typeWriter(chapter.content, chapterId);
+                currentChapter++;
+                updateProgressBar();
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = (currentChapter / chapters.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        // Custom cursor
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.getElementById('custom-cursor');
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        showNextChapter();
+    </script>
+</body>
+</html>
