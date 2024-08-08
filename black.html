@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shamiul Alom Sagor - Life Journey</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #bb86fc;
+        }
+        .section {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #bb86fc;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: #bb86fc;
+            border-radius: 50%;
+        }
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+        }
+        .timeline-item:nth-child(odd) {
+            margin-right: 50%;
+        }
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        #skillChart {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Shamiul Alom Sagor's Journey</h1>
+        <p><em>Also known as Roger in the digital realm</em></p>
+
+        <div class="section" id="intro">
+            <h2>The Beginning</h2>
+            <p>Embarking on a journey through the digital landscape, armed with curiosity and determination.</p>
+        </div>
+
+        <div class="section" id="education">
+            <h2>Educational Pursuits</h2>
+            <div class="timeline">
+                <div class="timeline-item">Completed Diploma in Computer Science and Engineering</div>
+                <div class="timeline-item">Pursuing BSc in Computer Science</div>
+            </div>
+        </div>
+
+        <div class="section" id="skills">
+            <h2>Skills Acquired</h2>
+            <canvas id="skillChart"></canvas>
+        </div>
+
+        <div class="section" id="crypto">
+            <h2>Crypto Adventures</h2>
+            <p>Ventured into the world of cryptocurrency in 2021, exploring trading and investment opportunities.</p>
+        </div>
+
+        <div class="section" id="projects">
+            <h2>Project Milestones</h2>
+            <div class="timeline">
+                <div class="timeline-item">Launched multiple crypto token projects</div>
+                <div class="timeline-item">Successful presales and market launches</div>
+                <div class="timeline-item">Raised significant funds on BSC and Ethereum chains</div>
+            </div>
+        </div>
+
+        <div class="section" id="reflection">
+            <h2>Reflection and Growth</h2>
+            <p>Learned valuable lessons about project management, market dynamics, and the importance of continuous learning in the fast-paced tech world.</p>
+        </div>
+
+        <div class="section" id="future">
+            <h2>Looking Ahead</h2>
+            <p>Focused on honing development skills, exploring Web3 technologies, and creating valuable content to share knowledge and experiences.</p>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Skill chart
+        const ctx = document.getElementById('skillChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Graphic Design', 'Crypto Trading', 'Smart Contracts', 'Project Management', 'Web Development'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [7, 6, 8, 7, 5],
+                    backgroundColor: 'rgba(187, 134, 252, 0.2)',
+                    borderColor: 'rgba(187, 134, 252, 1)',
+                    pointBackgroundColor: 'rgba(187, 134, 252, 1)',
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        pointLabels: {
+                            color: '#e0e0e0'
+                        },
+                        ticks: {
+                            color: '#e0e0e0',
+                            backdropColor: 'rgba(0, 0, 0, 0)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e0e0e0'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
